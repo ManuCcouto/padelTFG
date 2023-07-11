@@ -1,0 +1,12 @@
+com\padelapp\Authentication\SecurityService.class
+com\padelapp\config\JwtService.class
+com\padelapp\controller\FestiveController.class
+com\padelapp\ExceptionHandlerController.class
+com\padelapp\config\SecurityConfiguration.class
+com\padelapp\controller\BackofficeController.class
+com\padelapp\controller\BookingController.class
+com\padelapp\Authentication\AuthenticationService.class
+com\padelapp\exception\AuthenticateException.class
+com\padelapp\config\JwtAuthenticationFilter.class
+com\padelapp\controller\ResourceController.class
+com\padelapp\controller\UserController.class

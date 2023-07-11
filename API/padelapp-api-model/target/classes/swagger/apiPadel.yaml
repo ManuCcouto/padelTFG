@@ -1,0 +1,1127 @@
+openapi: 3.0.3
+info:
+  title: API Padelhg
+  description: |
+    This is a sample API for managing paddle court reservations, based on the OpenAPI 3.0 specification. This API allows performing operations related to paddle court reservations, such as creating, modifying, and canceling reservations.
+
+  contact:
+    email: ccoutomanul@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: booking
+    description: Everything about your bookings
+  - name: resource
+    description: Operations about resource
+  - name: user
+    description: Operations about user
+  - name: festive
+    description: Management of public holidays
+  - name: backoffice
+    description: Management of backoffice
+paths:
+  /booking:
+    post:
+      tags:
+        - booking
+      summary: Add a new booking
+      description: Add a new booking
+      operationId: addBooking
+      requestBody:
+        description: Create a new booking
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputBookingDTO'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+        "405":
+          description: Invalid input
+  /backoffice/booking:
+    post:
+      tags:
+        - booking
+        - backoffice
+      summary: Add a new or array booking
+      description: Add a new booking
+      operationId: backOfficeAddBooking
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Create a new booking
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookings:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InputBookingDTO'
+              required:
+                - bookings
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+        "405":
+          description: Invalid input
+  /booking/findByDate:
+    get:
+      tags:
+        - booking
+      summary: Finds bookings by date
+      description: Finds bookings that fall between two given dates
+      operationId: findBookingsByDates
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: startDate
+          in: query
+          description: Date from which the filter is applied
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: date-time
+            example: 2023-07-21T17:30:00Z
+        - name: endDate
+          in: query
+          description: Date from which the filter is applied
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: date-time
+            example: 2023-07-22T17:30:00Z
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingDTO'
+        "400":
+          description: Invalid date value
+        "401":
+          description: Unauthorized Error
+        "405":
+          description: Validation exception
+  /booking/findByType:
+    get:
+      tags:
+        - booking
+      summary: Finds booking by type
+      description: "Multiple tags can be provided with comma separated strings. Use\
+        \ tag1, tag2, tag3 for testing."
+      operationId: findBookingByType
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: bookingType
+          in: query
+          description: Tags to filter by
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/BookingType'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingDTO'
+        "400":
+          description: Invalid tag value
+
+  /booking/{bookingId}:
+    get:
+      tags:
+        - booking
+      summary: Find booking by ID
+      description: Returns a single booking
+      operationId: getBookingById
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: bookingId
+          in: path
+          description: ID of booking to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+        "400":
+          description: Invalid ID supplied
+        "401":
+          description: Unauthorized operation
+        "404":
+          description: Booking not found
+    put:
+      tags:
+        - booking
+      summary: Update an existing booking
+      description: Update an existing booking by id
+      operationId: updateBooking
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: bookingId
+          in: path
+          description: ID of the booking to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated booking information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputBookingDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingDTO'
+        "400":
+          description: Invalid booking ID supplied
+        "401":
+          description: Unauthorized
+        "404":
+          description: Booking not found
+        "405":
+          description: Validation exception
+    delete:
+      tags:
+        - booking
+      summary: Delete a booking by ID
+      description: Delete an existing booking by ID
+      operationId: deleteBooking
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: bookingId
+          in: path
+          description: ID of the booking to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: Booking deleted successfully
+        "400":
+          description: Invalid booking ID supplied
+        "401":
+          description: Unauthorized
+        "404":
+          description: Booking not found
+  /resource/{id}:
+    get:
+      tags:
+        - resource
+      summary: Get resource by ID
+      description: Returns a single resource by ID
+      operationId: getResourceById
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          description: ID of the resource to return
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDTO'
+        "400":
+          description: Invalid ID supplied
+        "401":
+          description: Unauthorized operation
+        "404":
+          description: Resource not found
+  /backoffice/resource/{id}:
+    put:
+      tags:
+        - resource
+        - backoffice
+      summary: Update an existing resource
+      security:
+        - bearerAuth: [ ]
+      description: Update an existing resource by ID
+      operationId: updateResource
+      parameters:
+        - name: id
+          in: path
+          description: ID of the resource to update
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Updated resource information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputResourceDTO'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDTO'
+        "400":
+          description: Invalid resource ID supplied
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+        "405":
+          description: Validation exception
+    delete:
+      tags:
+        - resource
+        - backoffice
+      summary: Delete a resource by ID
+      security:
+        - bearerAuth: [ ]
+      description: Delete an existing resource by ID
+      operationId: deleteResource
+      parameters:
+        - name: id
+          in: path
+          description: ID of the resource to delete
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "204":
+          description: Resource deleted successfully
+        "400":
+          description: Invalid resource ID supplied
+        "401":
+          description: Unauthorized
+        "404":
+          description: Resource not found
+  /backoffice/resource:
+    post:
+      tags:
+        - resource
+        - backoffice
+      summary: create a new resourceDTO
+      security:
+        - bearerAuth: [ ]
+      description: create a new resourceDTO
+      operationId: createResourceDTO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputResourceDTO'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDTO'
+        "405":
+          description: Invalid input
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /user/memberClub:
+    post:
+      tags:
+        - user
+      summary: Creates list of users with given input array
+      description: Creates list of users with given input array
+      operationId: createUsersWithListInput
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDTO'
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        default:
+          description: successful operation
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Logs user into the system
+      description: ""
+      operationId: loginUser
+      parameters:
+        - name: email
+          in: query
+          description: The user name for login
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              style: simple
+              explode: false
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: date-time
+            X-User-Info:
+              description: User Token
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+        "401":
+          description: Invalid username/password supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrorDTO'
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user session
+      description: ""
+      operationId: logoutUser
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+  /user/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user by user name
+      description: ""
+      operationId: getUserByName
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use user1 for testing. '
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: name that need to be deleted
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      parameters:
+        - name: username
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /user/{username}/bookings:
+    get:
+      tags:
+        - user
+        - booking
+      summary: Get the bookings of a user
+      description: ""
+      operationId: getBookingsUser
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: username
+          in: path
+          description: 'The name that needs to be fetched. Use user1 for testing. '
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookingDTO'
+        "400":
+          description: Invalid username supplied
+        "404":
+          description: User not found
+  /festive/{idfestive}:
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - festive
+      summary: Get festive by id
+      description: ''
+      operationId: getFestivebyId
+      parameters:
+        - name: idfestive
+          in: path
+          description: festive id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FestiveDTO'
+        '400':
+          description: Invalid festive id supplied
+        '404':
+          description: Festive not found
+  /festive/{date}:
+    get:
+      tags:
+        - festive
+      summary: Get festive by id
+      description: ''
+      operationId: getFestivebyDate
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: date
+          in: path
+          description: date
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FestiveDTO'
+        '400':
+          description: Invalid festive id supplied
+        '404':
+          description: Festive not found
+  /backoffice/festive/{idfestive}:
+    put:
+      tags:
+        - festive
+        - backoffice
+      summary: Update festive
+      description: Change festive selected.
+      operationId: updateFestive
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: idfestive
+          in: path
+          description: festive id to delete
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Update an existent festive
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FestiveDTO'
+      responses:
+        default:
+          description: successful operation
+    delete:
+      tags:
+        - festive
+        - backoffice
+      summary: Delete festive
+      description: This can only be done by the logged in user.
+      security:
+        - bearerAuth: [ ]
+      operationId: deleteFestive
+      parameters:
+        - name: idfestive
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Deleted
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+components:
+  schemas:
+    RestErrorDTO:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: The HTTP status code.
+        title:
+          type: string
+          description: The reason phrase of the HTTP error.
+        detail:
+          type: string
+          description: Additional details of the error.
+        timestamp:
+          type: string
+          description: The timestamp when the error occurred.
+      example:
+        status: 400
+        title: Error de validación
+        detail: El ID de del dato no es válido.
+        timestamp: '2022-10-15T10:30:00Z'
+      required:
+        - status
+        - title
+        - detail
+        - timestamp
+    PlayerPosition:
+      type: string
+      description: player's favorite position
+      enum:
+        - DRIVE
+        - REVERSE
+        - INDIFFERENT
+    ResourceDTOType:
+      type: string
+      description: booking type
+      enum:
+        - PADEL
+        - ARENA
+        - GYM
+        - ECOWASH
+    BookingType:
+      type: string
+      description: booking type
+      enum:
+        - TOURNAMENT
+        - TRAINING
+        - GAME
+        - MATCH-TELEGRAM
+        - LEAGUE
+    BookingVisibility:
+      type: string
+      description: determines whether players can be joined or not
+      enum:
+        - PRIVATE
+        - PUBLIC
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        petId:
+          type: integer
+          format: int64
+          example: 198772
+        quantity:
+          type: integer
+          format: int32
+          example: 7
+        shipDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Order Status
+          example: approved
+          enum:
+            - placed
+            - approved
+            - delivered
+        complete:
+          type: boolean
+      xml:
+        name: order
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: array
+          xml:
+            name: addresses
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Address'
+      xml:
+        name: customer
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 437 Lytton
+        city:
+          type: string
+          example: Palo Alto
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: "94301"
+      xml:
+        name: address
+    Category:
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Dogs
+    ResourceDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 2
+        number:
+          type: integer
+          format: int32
+          example: 12
+        name:
+          type: string
+          example: Pista central
+        resourceDTOType:
+          $ref: '#/components/schemas/ResourceDTOType'
+        timeSlot:
+          type: integer
+          description: reservable time slot
+          example: 90
+        startTimeSlot:
+          type: string
+          format: time
+          example: 09:00:00
+        endTimeSlot:
+          type: string
+          format: time
+          example: 00:00:00
+        basePrice:
+          type: number
+          format: double
+          example: 5.5
+        daysInAdvance:
+          type: integer
+          format: int32
+          example: 3
+    InputResourceDTO:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int32
+          example: 12
+        name:
+          type: string
+          example: Pista central
+        resourceDTOActivity:
+          type: string
+          example: Padel
+        timeSlot:
+          type: integer
+          description: reservable time slot
+          example: 90
+        startTimeSlot:
+          type: string
+          format: time
+          example: 09:00:00
+        endTimeSlot:
+          type: string
+          format: time
+          example: 00:00:00
+        basePrice:
+          type: number
+          format: double
+          example: 5.5
+        daysInAdvance:
+          type: integer
+          format: int32
+          example: 3
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          format: email
+          example: john@email.com
+        password:
+          type: string
+          format: password
+          example: "12345"
+        phone:
+          type: string
+          example: "12345"
+        userPosition:
+          $ref: '#/components/schemas/PlayerPosition'
+        level:
+          type: integer
+          example: 5
+        description:
+          type: string
+          example: Admin user with full access
+        startTime:
+          type: string
+          format: date-time
+          example: 2022-01-01T00:00:00Z
+        endTime:
+          type: string
+          format: date-time
+          example: 2022-12-31T23:59:59Z
+        sport:
+          type: string
+          example: Soccer
+        role:
+          type: string
+          example: LEVEL_ADMIN
+        memberClub:
+          $ref: '#/components/schemas/MemberClub'
+    MemberClub:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+          example: 2022-01-01T00:00:00Z
+        endTDate:
+          type: string
+          format: date-time
+          example: 2022-12-31T23:59:59Z
+        dni:
+          type: string
+          example: 12345678A
+        onHold:
+          type: boolean
+          example: false
+    Coach:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+          example: 2022-01-01T00:00:00Z
+        endTDate:
+          type: string
+          format: date-time
+          example: 2022-12-31T23:59:59Z
+        dni:
+          type: string
+          example: 12345678A
+        onHold:
+          type: boolean
+          example: false
+    UserBooking:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          format: email
+          example: john@email.com
+        phone:
+          type: string
+          example: "12345"
+        userPosition:
+          $ref: '#/components/schemas/PlayerPosition'
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      xml:
+        name: tag
+    BookingDTO:
+      type: object
+      properties:
+        idBooking:
+          type: integer
+          format: int64
+          example: 10
+        resourceDTO:
+          $ref: '#/components/schemas/ResourceDTO'
+        starDate:
+          type: string
+          format: date-time
+          example: 2017-07-21T17:30:00Z
+        endDate:
+          type: string
+          format: date-time
+        ownerUser:
+          $ref: '#/components/schemas/UserBooking'
+        price:
+          type: number
+          format: double
+        guessts:
+          $ref: '#/components/schemas/UserBooking'
+        bookingType:
+          $ref: '#/components/schemas/BookingType'
+        bookingVisibility:
+          $ref: '#/components/schemas/BookingVisibility'
+    InputBookingDTO:
+      required:
+        - endDate
+        - resourceDTO
+        - startDate
+        - user
+      type: object
+      properties:
+        resource:
+          type: integer
+          example: 6
+        starDate:
+          type: string
+          format: date-time
+          example: 2017-07-21T17:30:00Z
+        endDate:
+          type: string
+          format: date-time
+        user:
+          type: integer
+        bookingType:
+          $ref: '#/components/schemas/BookingType'
+        guessts:
+          type: array
+          items:
+            type: string
+            example: [juanca1223, manu34]
+        bookingVisibility:
+          $ref: '#/components/schemas/BookingVisibility'
+        level:
+          type: integer
+          example: 5
+    FestiveDTO:
+      type: object
+      properties:
+        festiveId:
+          type: integer
+          format: int64
+          example: 10
+        date:
+          type: string
+          format: date-time
+          example: 2023-03-28
+        description:
+          type: string
+          example: Reconquista de Vigo
+    AuthenticationResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: Token de acceso
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        refreshToken:
+          type: string
+          description: Token de actualización
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+      required:
+        - access_token
+        - refresh_token
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

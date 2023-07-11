@@ -1,0 +1,183 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.padelapp.dao.FestiveDao",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_774277991 { 
+   	label=padelapp
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1470819467 { 
+   	label=dao
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   FestiveDao1875849256[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)FestiveDao</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ changeFestive(festive: Festive): Optional&lt;Festive&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllFestive(): List&lt;Festive&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFestiveById(id: Integer): Optional&lt;Festive&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveFestive(festive: Festive): Optional&lt;Festive&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+} 
+
+subgraph cluster_309633155 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   FestiveController332651670[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FestiveController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   authentication: Authentication [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   festiveService: FestiveServiceImpl [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getFestivebyId(idfestive: Integer): ResponseEntity&lt;FestiveDTO&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_421988834 { 
+   	label=model
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   FestiveDaoImpl913233133[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FestiveDaoImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   festiveRepository: FestiveRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ changeFestive(festive: Festive): Optional&lt;Festive&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFestiveById(id: Integer): Optional&lt;Festive&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveFestive(festive: Festive): Optional&lt;Festive&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+FestiveServiceImpl415352246[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FestiveServiceImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   festiveDao: FestiveDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   festiveMapper: FestiveMapper [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getFestiveById(id: Integer): FestiveDTO</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+FestiveController332651670 -> FestiveServiceImpl415352246[label="festiveService
+[1]"];
+FestiveDao1875849256 -> FestiveDaoImpl913233133[arrowhead=none, arrowtail=empty, dir=both];
+FestiveServiceImpl415352246 -> FestiveDao1875849256[label="festiveDao
+[1]"];
+    
+}
+@enduml

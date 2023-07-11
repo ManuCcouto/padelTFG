@@ -1,0 +1,685 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.padelapp.service.BookingService",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_774277991 { 
+   	label=padelapp
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1382903192 { 
+   	label=entities
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Admin542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Admin</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   levelAdmin: Integer [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Booking542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Booking</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookingType: BookingType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingUsers: List&lt;BookingUser&gt; [0..4]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   endTime: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resource: Resource [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   status: Set&lt;BookingStatus&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   visibility: Boolean [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): BookingBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BookingStatus542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingStatus</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   booking: Booking [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   createDate: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   deleteDate: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   statusType: StatusType [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): BookingStatusBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BookingType542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingType</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   code: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Integer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): BookingTypeBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BookingUser542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingUser</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   booking: Booking [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingUserId: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   createDate: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   deleteDate: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   owner: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   user: User [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): BookingUserBuilder</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Coach542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Coach</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   sport: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MemberClub542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MemberClub</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   dni: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   endTime: Timestamp [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   onHold: Boolean [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: Timestamp [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Resource542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Resource</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   basePrice: Double [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   dayInAdvance: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   endTimeSlot: LocalTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   number: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceType: ResourceType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTimeSlot: LocalTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   timeSlot: Integer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceType542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceType</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   code: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   description: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Integer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+StatusType542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)StatusType</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   status: StatusEnum [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+User542656709[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)User</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookingUsers: List&lt;BookingUser&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   createTime: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   email: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gender: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   level: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   password: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   phone: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   roles: List&lt;UserRole&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   surname: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   telegramUsername: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): UserBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_1733424338 { 
+   	label=service
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BookingService1983414277[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)BookingService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAvailableBookingsBetweenDates(starDate: LocalDateTime, endDate: LocalDateTime): List&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllBookingsByOwnerId(ownerId: Integer): List&lt;Booking&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveNewBooking(inputBooking: InputBookingDTO): BookingDTO</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+} 
+
+subgraph cluster_309633155 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BookingController332651670[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   bookingService: BookingService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   bookingUserService: BookingUserServiceImpl [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   resourceService: ResourceService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addBooking(inputBooking: InputBookingDTO): ResponseEntity&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteBooking(bookingId: Long): ResponseEntity&lt;Void&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findBookingByType(bookingType: List&lt;BookingType&gt;): ResponseEntity&lt;List&lt;BookingDTO&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findBookingsByDates(startDate: OffsetDateTime, endDate: OffsetDateTime): ResponseEntity&lt;List&lt;BookingDTO&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBookingById(bookingId: Long): ResponseEntity&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateBooking(bookingId: Long, inputBooking: InputBookingDTO): ResponseEntity&lt;BookingDTO&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceController332651670[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   bookingService: BookingService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   resourceService: ResourceService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: UserRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getResourceById(id: Long): ResponseEntity&lt;ResourceDTO&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_421988834 { 
+   	label=model
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BookingDaoImpl913233133[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingDaoImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookingRepository: BookingRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: UserRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ checkBooking(startDate: LocalDateTime, endDate: LocalDateTime, resource: Integer): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveBookingWithOwner(booking: Booking, owner: User)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BookingMapperImpl1547609312[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingMapperImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   offsetDateTimeMapper: OffsetDateTimeMapper [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceMapper: ResourceMapper [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- bookingBookingTypeCode(booking: Booking): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toBookingDTO(booking: Booking): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toBookingDTOList(booking: List&lt;Booking&gt;): List&lt;BookingDTO&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+BookingServiceImpl415352246[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingServiceImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookingDao: BookingDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingMapper: BookingMapper [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingRepository: BookingRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingUserRepository: BookingUserRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceDao: ResourceDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceRepository: ResourceRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userRepository: UserRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- findAvailableBookings(availabilityMapWithDateTime: Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;, reservedResourcesMap: Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;): List&lt;Booking&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAvailableBookingsBetweenDates(starDate: LocalDateTime, endDate: LocalDateTime): List&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllBookingsByOwnerId(ownerId: Integer): List&lt;Booking&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getResourcesReservedByTime(bookings: List&lt;Booking&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveNewBooking(inputBooking: InputBookingDTO): BookingDTO</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+OffsetDateTimeMapperImpl1547609312[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)OffsetDateTimeMapperImpl</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceDaoImpl913233133[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceDaoImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   resourceRepository: ResourceRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllResources(): Map&lt;Interval, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAvailableResourcesByTime(startDateTime: LocalDateTime, endDateTime: LocalDateTime): Map&lt;LocalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getPosibleResources(date: LocalDate, availabilityResources: Map&lt;Interval, List&lt;Resource&gt;&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mapToIntervalDate(date: LocalDate, availabilityResources: Map&lt;Interval, List&lt;Resource&gt;&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceMapperImpl1547609312[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceMapperImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ toDTO(resource: Resource): ResourceDTO</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_429530986 { 
+   	label=utils
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Interval1211392887[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Interval</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   endTime: LocalTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: LocalTime [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toIntervalDateTime(date: LocalDate): IntervalDateTime</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_641256536 { 
+   	label=telegram
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   MyTelegramBot525026539[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MyTelegramBot</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   botToken: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   botUsername: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   formBuilder: FormBuilder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   messageTemplate: MessageTemplate [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   reservaService: BookingService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- cajaTexto(chatId: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- clean(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- dameMensaje(chatId: String, message: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- deleteLastMessage()</TD></TR>
+<TR><TD ALIGN="LEFT" >- deleteMessages(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ echoMessage(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- editMessage(message: Message)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ enviarMensaje(chatId: String, mensaje: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateCode(chatId: long): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- limpieza()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onUpdateReceived(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- processUserResponse(message: Message)</TD></TR>
+<TR><TD ALIGN="LEFT" >- saveUserGender(userId: String, gender: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendDefaultMessage(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendEditableMessage(chatId: Long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendGenderSelection(userId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendMatchDayOptions(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendUserNameRequest(userId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ verificarReservas()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+subgraph cluster_96794 { 
+   	label=api
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1483545003 { 
+   	label=model
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BookingDTO2066248152[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingDTO</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookingType: BookingType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingVisibility: BookingVisibility [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   endDate: OffsetDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   guessts: UserBooking [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idBooking: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   ownerUser: UserBooking [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   price: Double [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceDTO: ResourceDTO [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   starDate: OffsetDateTime [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ bookingType(bookingType: BookingType): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ bookingVisibility(bookingVisibility: BookingVisibility): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ builder(): BookingDTOBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ endDate(endDate: OffsetDateTime): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ guessts(guessts: UserBooking): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ idBooking(idBooking: Long): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ ownerUser(ownerUser: UserBooking): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ price(price: Double): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resourceDTO(resourceDTO: ResourceDTO): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ starDate(starDate: OffsetDateTime): BookingDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >- toIndentedString(o: Object): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceDTO2066248152[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceDTO</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   basePrice: Double [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   daysInAdvance: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   endTimeSlot: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   name: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   number: Integer [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceDTOType: ResourceDTOType [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTimeSlot: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   timeSlot: Integer [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ basePrice(basePrice: Double): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ builder(): ResourceDTOBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ daysInAdvance(daysInAdvance: Integer): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ endTimeSlot(endTimeSlot: String): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id(id: Long): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ name(name: String): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ number(number: Integer): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ resourceDTOType(resourceDTOType: ResourceDTOType): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startTimeSlot(startTimeSlot: String): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >+ timeSlot(timeSlot: Integer): ResourceDTO</TD></TR>
+<TR><TD ALIGN="LEFT" >- toIndentedString(o: Object): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+UserBooking2066248152[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)UserBooking</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   email: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   firstName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   id: Long [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   lastName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   phone: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userPosition: PlayerPosition [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   username: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): UserBookingBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" >+ email(email: String): UserBooking</TD></TR>
+<TR><TD ALIGN="LEFT" >+ firstName(firstName: String): UserBooking</TD></TR>
+<TR><TD ALIGN="LEFT" >+ id(id: Long): UserBooking</TD></TR>
+<TR><TD ALIGN="LEFT" >+ lastName(lastName: String): UserBooking</TD></TR>
+<TR><TD ALIGN="LEFT" >+ phone(phone: String): UserBooking</TD></TR>
+<TR><TD ALIGN="LEFT" >- toIndentedString(o: Object): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ userPosition(userPosition: PlayerPosition): UserBooking</TD></TR>
+<TR><TD ALIGN="LEFT" >+ username(username: String): UserBooking</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+Booking542656709 -> BookingStatus542656709[label="status
+[0..*]"];
+Booking542656709 -> BookingType542656709[label="bookingType
+[0..1]"];
+Booking542656709 -> BookingUser542656709[label="bookingUsers
+[0..4]"];
+Booking542656709 -> Resource542656709[label="resource
+[0..1]"];
+BookingController332651670 -> BookingService1983414277[label="bookingService
+[1]"];
+BookingDTO2066248152 -> ResourceDTO2066248152[label="resourceDTO
+[0..1]"];
+BookingDTO2066248152 -> UserBooking2066248152[label="guessts
+[0..1]"];
+BookingDTO2066248152 -> UserBooking2066248152[label="ownerUser
+[0..1]"];
+BookingMapperImpl1547609312 -> BookingDTO2066248152[label="toBookingDTO() -> builder()"];
+BookingMapperImpl1547609312 -> OffsetDateTimeMapperImpl1547609312[arrowhead=none];
+BookingMapperImpl1547609312 -> ResourceMapperImpl1547609312[arrowhead=none];
+BookingService1983414277 -> BookingServiceImpl415352246[arrowhead=none, arrowtail=empty, dir=both];
+BookingServiceImpl415352246 -> BookingDaoImpl913233133[arrowhead=none];
+BookingServiceImpl415352246 -> BookingMapperImpl1547609312[arrowhead=none];
+BookingServiceImpl415352246 -> BookingType542656709[label="saveNewBooking() -> builder()"];
+BookingServiceImpl415352246 -> BookingUser542656709[label="saveNewBooking() -> builder()"];
+BookingServiceImpl415352246 -> ResourceDaoImpl913233133[arrowhead=none];
+BookingStatus542656709 -> Booking542656709[label="booking
+[0..1]"];
+BookingStatus542656709 -> StatusType542656709[label="statusType
+[0..1]"];
+BookingUser542656709 -> Booking542656709[label="booking
+[0..1]"];
+BookingUser542656709 -> User542656709[label="user
+[0..1]"];
+MyTelegramBot525026539 -> BookingService1983414277[label="reservaService
+[1]"];
+Resource542656709 -> ResourceType542656709[label="resourceType
+[0..1]"];
+ResourceController332651670 -> BookingService1983414277[label="bookingService
+[1]"];
+ResourceDaoImpl913233133 -> Interval1211392887[label="mapToIntervalDate() -> toIntervalDateTime()"];
+ResourceMapperImpl1547609312 -> ResourceDTO2066248152[label="toDTO() -> builder()"];
+User542656709 -> Admin542656709[arrowhead=none, arrowtail=empty, dir=both];
+User542656709 -> BookingUser542656709[label="bookingUsers
+[0..*]"];
+User542656709 -> Coach542656709[arrowhead=none, arrowtail=empty, dir=both];
+User542656709 -> MemberClub542656709[arrowhead=none, arrowtail=empty, dir=both];
+    
+}
+@enduml

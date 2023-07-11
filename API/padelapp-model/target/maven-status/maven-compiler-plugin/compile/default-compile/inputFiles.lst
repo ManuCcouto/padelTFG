@@ -1,0 +1,17 @@
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\mapper\ResourceMapper.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\service\BookingServiceImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\service\BookingUserServiceImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\service\FestiveServiceImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\service\UserServiceImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\dao\FestiveDaoImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\dao\ResourceDaoImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\exception\ResourceFoundException.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\mapper\FestiveMapper.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\mapper\BookingMapper.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\dao\BookingDaoImpl.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\exception\ForbiddenException.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\utils\LocalDateTimeUtils.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\mapper\BookingTypeMapper.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\exception\ResourceNotFoundException.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\mapper\OffsetDateTimeMapper.java
+C:\TFG\padelapp\padelapp-model\src\main\java\com\padelapp\model\service\ResourceServiceImpl.java

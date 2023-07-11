@@ -1,0 +1,195 @@
+findTransport:
+  get:
+    description: "Search for transport information"
+    tags:
+    - "transport"
+    summary: "Obtains a list of transport whose data matches the input parameters "
+    operationId: "findTransports"
+    parameters:
+      - $ref: "../common/common_parameters.yml#/components/parameters/startDate"
+      - $ref: "../common/common_parameters.yml#/components/parameters/endDate"
+      - $ref: "../common/common_parameters.yml#/components/parameters/physicalLocations"
+      - $ref: "../common/common_parameters.yml#/components/parameters/transportAreas"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/allowedPhysicalLocations"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/allowedTransportAreas"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/transitTypes"
+      - $ref: "../common/common_parameters.yml#/components/parameters/originSystems"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/searchMode"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/courierIds"
+      - $ref: "../common/common_parameters.yml#/components/parameters/transportTypes"
+      - $ref: "../common/common_parameters.yml#/components/parameters/licensePlates"
+      - $ref: "../common/common_parameters.yml#/components/parameters/originMarketId"
+      - $ref: "../common/common_parameters.yml#/components/parameters/marketId"
+      - $ref: "../common/common_parameters.yml#/components/parameters/status"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/orderField"
+      - $ref: "../common/common_parameters.yml#/components/parameters/orderMode"
+      - $ref: "../common/common_parameters.yml#/components/parameters/limit"
+      - $ref: "../common/common_parameters.yml#/components/parameters/offset"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindTransports"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findTransportById:
+  get:
+    description: "Search for transport information by id and system"
+    tags:
+      - "transport"
+    summary: "Obtains a transport searching by id and system"
+    operationId: "findTransportById"
+    parameters:
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystem"
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystemTransportCode"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/allowedPhysicalLocations"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/allowedTransportAreas"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindTransports"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '404':
+        $ref: "../common/common_responses.yml#/components/responses/404"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findGeolocationOld:
+  get:
+    description: "Old search for transport geolocation information"
+    tags:
+    - "transport"
+    summary: "Obtains a list of transport GPS points whose data matches the input parameters"
+    operationId: "findGeolocationOld"
+    parameters:
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/idSistemaOrigenRequest"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/codigoTransporteRequest"
+      - $ref: "../transport/transport_parameters.yml#/components/parameters/idEntregaSam"
+      - $ref: "../common/common_parameters.yml#/components/parameters/startIndex"
+      - $ref: "../common/common_parameters.yml#/components/parameters/count"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindGeolocationOld"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findGeolocation:
+  get:
+    description: "Search for transport geolocation information"
+    tags:
+    - "transport"
+    summary: "Obtains a list of transport GPS points whose data matches the input parameters"
+    operationId: "findGeolocation"
+    parameters:
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystem"
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystemTransportCode"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindGeolocation"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '404':
+        $ref: "../common/common_responses.yml#/components/responses/404"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findTransportTrace:
+  get:
+    description: "Search for transport traceability information"
+    tags:
+    - "transport"
+    summary: "Obtains a transport traceability whose data matches the input parameters"
+    operationId: "findTransportTrace"
+    parameters:
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystem"
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystemTransportCode"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindTransportTrace"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '404':
+        $ref: "../common/common_responses.yml#/components/responses/404"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findTransportRoute:
+  get:
+    description: "Search for transport route information"
+    tags:
+    - "transport"
+    summary: "Obtains a route whose data matches the input parameters"
+    operationId: "findTransportRoute"
+    parameters:
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystem"
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystemTransportCode"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindTransportRoute"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '404':
+        $ref: "../common/common_responses.yml#/components/responses/404"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findTransportIds:
+  get:
+    description: "Search for transport information by id and system"
+    tags:
+      - "transport"
+    summary: "Obtains a transport searching by id and system"
+    operationId: "findTransportIds"
+    parameters:
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystem"
+      - $ref: "../common/common_parameters.yml#/components/parameters/pathSystemTransportCode"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindTransportIds"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '404':
+        $ref: "../common/common_responses.yml#/components/responses/404"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []
+findTransportMultipleIds:
+  post:
+    description: "Search for transport information by id and system"
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../transport/transport_schemas.yml#/components/schemas/InputTransportSystemMultipleIds"
+    tags:
+      - "transport"
+    summary: "Obtains multiple transports searching by id and system"
+    operationId: "findTransportMultipleIds"
+    responses:
+      '200':
+        $ref: "../transport/transport_responses.yml#/components/responses/200FindTransportMultipleIds"
+      '400':
+        $ref: "../common/common_responses.yml#/components/responses/400"
+      '500':
+        $ref: "../common/common_responses.yml#/components/responses/500"
+    security:
+      - ItxBearerAuth: []
+      - ItxBasicAuth: []

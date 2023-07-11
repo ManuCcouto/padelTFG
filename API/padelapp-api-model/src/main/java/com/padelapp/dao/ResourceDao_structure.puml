@@ -1,0 +1,306 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.padelapp.dao.ResourceDao",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_774277991 { 
+   	label=padelapp
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1470819467 { 
+   	label=dao
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ResourceDao1875849256[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)ResourceDao</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllResources(): Map&lt;Interval, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAvailableResourcesByTime(startDateTime: LocalDateTime, endDateTime: LocalDateTime): Map&lt;LocalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mapToIntervalDate(date: LocalDate, availabilityResources: Map&lt;Interval, List&lt;Resource&gt;&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+} 
+
+subgraph cluster_309633155 { 
+   	label=controller
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BookingController332651670[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   bookingService: BookingService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   bookingUserService: BookingUserServiceImpl [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   resourceService: ResourceService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ addBooking(inputBooking: InputBookingDTO): ResponseEntity&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ deleteBooking(bookingId: Long): ResponseEntity&lt;Void&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findBookingByType(bookingType: List&lt;BookingType&gt;): ResponseEntity&lt;List&lt;BookingDTO&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findBookingsByDates(startDate: OffsetDateTime, endDate: OffsetDateTime): ResponseEntity&lt;List&lt;BookingDTO&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBookingById(bookingId: Long): ResponseEntity&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ updateBooking(bookingId: Long, inputBooking: InputBookingDTO): ResponseEntity&lt;BookingDTO&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceController332651670[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >#   bookingService: BookingService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   resourceService: ResourceService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   userRepository: UserRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getResourceById(id: Long): ResponseEntity&lt;ResourceDTO&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_421988834 { 
+   	label=model
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   BookingServiceImpl415352246[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)BookingServiceImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   bookingDao: BookingDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingMapper: BookingMapper [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingRepository: BookingRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   bookingUserRepository: BookingUserRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceDao: ResourceDao [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceRepository: ResourceRepository [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   userRepository: UserRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- findAvailableBookings(availabilityMapWithDateTime: Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;, reservedResourcesMap: Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;): List&lt;Booking&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAvailableBookingsBetweenDates(starDate: LocalDateTime, endDate: LocalDateTime): List&lt;BookingDTO&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAllBookingsByOwnerId(ownerId: Integer): List&lt;Booking&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getResourcesReservedByTime(bookings: List&lt;Booking&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveNewBooking(inputBooking: InputBookingDTO): BookingDTO</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceDaoImpl913233133[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceDaoImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   resourceRepository: ResourceRepository [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAllResources(): Map&lt;Interval, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ findAvailableResourcesByTime(startDateTime: LocalDateTime, endDateTime: LocalDateTime): Map&lt;LocalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getPosibleResources(date: LocalDate, availabilityResources: Map&lt;Interval, List&lt;Resource&gt;&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mapToIntervalDate(date: LocalDate, availabilityResources: Map&lt;Interval, List&lt;Resource&gt;&gt;): Map&lt;IntervalDateTime, List&lt;Resource&gt;&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ResourceServiceImpl415352246[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ResourceServiceImpl</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   resourceDao: ResourceDaoImpl [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ findAvailableBookingsByTimeSlot(startDateTime: LocalDateTime, endDateTime: LocalDateTime): List&lt;Booking&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- mapResourcesToBookings(resourcesByTime: Map&lt;LocalDateTime, List&lt;Resource&gt;&gt;): List&lt;Booking&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_429530986 { 
+   	label=utils
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Interval1211392887[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Interval</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   endTime: LocalTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   startTime: LocalTime [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ toIntervalDateTime(date: LocalDate): IntervalDateTime</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+
+subgraph cluster_641256536 { 
+   	label=telegram
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   MyTelegramBot525026539[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MyTelegramBot</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   botToken: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   botUsername: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   formBuilder: FormBuilder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   messageTemplate: MessageTemplate [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   reservaService: BookingService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- cajaTexto(chatId: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- clean(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- dameMensaje(chatId: String, message: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- deleteLastMessage()</TD></TR>
+<TR><TD ALIGN="LEFT" >- deleteMessages(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ echoMessage(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- editMessage(message: Message)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ enviarMensaje(chatId: String, mensaje: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateCode(chatId: long): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- limpieza()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onUpdateReceived(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- processUserResponse(message: Message)</TD></TR>
+<TR><TD ALIGN="LEFT" >- saveUserGender(userId: String, gender: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendDefaultMessage(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendEditableMessage(chatId: Long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendGenderSelection(userId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendMatchDayOptions(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendUserNameRequest(userId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ verificarReservas()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+BookingController332651670 -> BookingServiceImpl415352246[label="bookingService
+[1]", arrowhead=none];
+BookingController332651670 -> ResourceServiceImpl415352246[label="resourceService
+[1]", arrowhead=none];
+BookingServiceImpl415352246 -> ResourceDao1875849256[label="resourceDao
+[1]"];
+MyTelegramBot525026539 -> BookingServiceImpl415352246[label="reservaService
+[1]", arrowhead=none];
+ResourceController332651670 -> BookingServiceImpl415352246[label="bookingService
+[1]", arrowhead=none];
+ResourceController332651670 -> ResourceServiceImpl415352246[label="resourceService
+[1]", arrowhead=none];
+ResourceDao1875849256 -> ResourceDaoImpl913233133[arrowhead=none, arrowtail=empty, dir=both];
+ResourceDaoImpl913233133 -> Interval1211392887[label="mapToIntervalDate() -> toIntervalDateTime()"];
+ResourceServiceImpl415352246 -> ResourceDaoImpl913233133[label="resourceDao
+[1]"];
+    
+}
+@enduml

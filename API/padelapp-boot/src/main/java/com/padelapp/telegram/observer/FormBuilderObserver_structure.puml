@@ -1,0 +1,279 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.padelapp.telegram.observer.FormBuilderObserver",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_774277991 { 
+   	label=padelapp
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_641256536 { 
+   	label=telegram
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ChooseDayState415459971[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ChooseDayState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   formBuilder: FormBuilder [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- echoMessage(update: Update): SendMessage</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getNextState(condition: String): FormState</TD></TR>
+<TR><TD ALIGN="LEFT" >- getTelegramId(update: Update): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(formResponses: Map&lt;String, String&gt;, userInput: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ChooseLevelState415459971[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ChooseLevelState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   formBuilder: FormBuilder [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- echoMessage(update: Update): SendMessage</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getNextState(condition: String): FormState</TD></TR>
+<TR><TD ALIGN="LEFT" >- getTelegramId(update: Update): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(formResponses: Map&lt;String, String&gt;, userInput: String)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ChooseResourceState415459971[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ChooseResourceState</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   formBuilder: FormBuilder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   messageTemplate: MessageTemplate [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- getDeleteMessages(messageIds: List&lt;Integer&gt;, chatId: String): List&lt;DeleteMessage&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getNextState(condition: String): FormState</TD></TR>
+<TR><TD ALIGN="LEFT" >- getTelegramId(update: Update): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(formResponses: Map&lt;String, String&gt;, userInput: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendDefaultMessage(chatId: long): SendMessage</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendDefaultMessages(chatId: long): List&lt;SendMessage&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+FormBuilder1248189326[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FormBuilder</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   currentState: FormState [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   formResponses: Map&lt;String, String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   isFinalState: boolean [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   messagesHistoricId: List&lt;Integer&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   observer: FormBuilderObserver [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sendMessage: List&lt;SendMessage&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   update: Update [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ onDeletedMessageUpdated(deleteMessage: List&lt;DeleteMessage&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onSendMessageUpdated(sendMessage: List&lt;SendMessage&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ processFormResponse(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ saveResponse(field: String, response: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ startForm(update: Update)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+FormBuilderObserver488421655[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(I)FormBuilderObserver</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ onDeletedMessageUpdated(deleteMessage: List&lt;DeleteMessage&gt;)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onSendMessageUpdated(sendMessage: List&lt;SendMessage&gt;)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#F1E5FD"
+];
+
+MessageTemplate2136391821[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MessageTemplate</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   annotation: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   day: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   gender: GenderEnum [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   level: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   resourceName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   shareCode: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sportEmoji: SportEmojiEnum [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   status: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   time: String [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ builder(): MessageTemplateBuilder</TD></TR>
+<TR><TD ALIGN="LEFT" ># canEqual(other: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateCustomMessage(day: String, time: String, resourceName: String, level: String, status: String, annotation: String, shareCode: String, gender: GenderEnum, sportEmoji: SportEmojiEnum): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateDefaultMessage(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateMessage(): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+MyTelegramBot198989947[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)MyTelegramBot</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   botToken: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   botUsername: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   formBuilder: FormBuilder [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   messageTemplate: MessageTemplate [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   reservaService: BookingService [1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- cajaTexto(chatId: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- clean(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- dameMensaje(chatId: String, message: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- deleteLastMessage()</TD></TR>
+<TR><TD ALIGN="LEFT" >- deleteMessages(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ echoMessage(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- editMessage(message: Message)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ enviarMensaje(chatId: String, mensaje: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ generateCode(chatId: long): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- limpieza()</TD></TR>
+<TR><TD ALIGN="LEFT" >+ onUpdateReceived(update: Update)</TD></TR>
+<TR><TD ALIGN="LEFT" >- processUserResponse(message: Message)</TD></TR>
+<TR><TD ALIGN="LEFT" >- saveUserGender(userId: String, gender: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendDefaultMessage(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendEditableMessage(chatId: Long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendGenderSelection(userId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendMatchDayOptions(chatId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >- sendUserNameRequest(userId: long)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ verificarReservas()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+ChooseDayState415459971 -> ChooseLevelState415459971[arrowhead=none];
+ChooseDayState415459971 -> ChooseResourceState415459971[arrowhead=none];
+ChooseDayState415459971 -> FormBuilder1248189326[label="formBuilder
+[0..1]"];
+ChooseLevelState415459971 -> FormBuilder1248189326[label="formBuilder
+[0..1]"];
+ChooseResourceState415459971 -> FormBuilder1248189326[label="formBuilder
+[0..1]"];
+ChooseResourceState415459971 -> MessageTemplate2136391821[label="messageTemplate
+[1]"];
+FormBuilder1248189326 -> ChooseDayState415459971[arrowhead=none];
+FormBuilder1248189326 -> ChooseDayState415459971[label="currentState
+[0..1]", arrowhead=none];
+FormBuilder1248189326 -> ChooseLevelState415459971[arrowhead=none];
+FormBuilder1248189326 -> ChooseResourceState415459971[arrowhead=none];
+FormBuilder1248189326 -> FormBuilderObserver488421655[label="observer
+[0..1]"];
+FormBuilderObserver488421655 -> FormBuilder1248189326[arrowhead=none, arrowtail=empty, dir=both];
+MyTelegramBot198989947 -> FormBuilder1248189326[label="formBuilder
+[0..1]"];
+    
+}
+@enduml

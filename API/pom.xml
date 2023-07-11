@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+  <parent>            		
+    <groupId>org.springframework.boot</groupId>           		
+          <artifactId>spring-boot-starter-parent</artifactId>        		
+          <version>3.0.2</version>           		
+           <relativePath/>         
+        <!-- lookup parent from repository -->           	 
+    </parent>
+
+  <groupId>com.padelapp</groupId>
+  <artifactId>PADEL</artifactId>     	 
+    <version>0.0.1-SNAPSHOT</version>     	
+    <packaging>pom</packaging>
+    <name>${project.groupId}:${project.artifactId}</name>
+      <description>Padel Club Manage</description>
+      	     
+   <properties>            	
+         <java.version>17</java.version>           	
+     </properties>
+  
+  <modules>
+    <module>padelapp-api-model</module>
+    <module>padelapp-model</module>
+    <module>padelapp-web-service</module>
+    <module>padelapp-boot</module>
+  </modules>
+
+  <dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.padelapp</groupId>
+      <artifactId>padelapp-boot</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.padelapp</groupId>
+      <artifactId>padelapp-web-service</artifactId>
+    </dependency>
+  <dependency>
+    <groupId>com.padelapp</groupId>
+    <artifactId>padelapp-api-model</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>padelapp-model</artifactId>
+  </dependency>
+  </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-rest</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+
+    <!--Security-->
+
+    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+
+
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.23</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+
+  </dependencies>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
+
+
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

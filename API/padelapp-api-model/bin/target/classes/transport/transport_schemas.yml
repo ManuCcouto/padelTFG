@@ -1,0 +1,548 @@
+components:
+  schemas:
+    OutputTransportList:
+      description: "List of transports"
+      type: "object"
+      properties:
+        totalCount:
+          type: "integer"
+          format: "int32"
+        transports:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Transport"
+    Transport:
+      description: "Transport information"
+      type: "object"
+      properties:
+        transitType:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransitType"
+        transportType:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportType"
+        transportTypeDesc:
+          type: "string"
+        transportId:
+          type: "integer"
+          format: "int64"
+        courierId:
+          type: "integer"
+          format: "int32"
+        courierDesc:
+          type: "string"
+        originSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        mainSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        originSystemTransportCode:
+          type: "integer"
+          format: "int64"
+        firstEta:
+          type: "string"
+          format: "date-time"
+        lastEtd:
+          type: "string"
+          format: "date-time"
+        trailerLicensePlate:
+          type: "string"
+        truckLicensePlate:
+          type: "string"
+        containerLicensePlates:
+          type: "array"
+          items:
+            type: "string"
+        stops:
+          #Es necesario?? Si es necesario!
+          type: "array"
+          items:
+            $ref: "../common/common_schemas.yml#/components/schemas/RouteStop"
+        originMarketId:
+          type: "integer"
+          format: "int32"
+        destinationMarketId:
+          type: "integer"
+          format: "int32"
+        hasIssues:
+          type: "boolean"
+        lastGPSPosition:
+          $ref: "../common/common_schemas.yml#/components/schemas/GPSPosition"
+        alert:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportAlert"
+        alertDesc:
+          type: "string"
+        status:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportStatus"
+        statusDesc:
+          type: "string"
+        systemsStatus:
+          type: "array"
+          items:
+            $ref: "../common/common_schemas.yml#/components/schemas/SystemTransportStatus"
+        gpsQuality:
+          type: "integer"
+          format: "int32"
+          maximum: 100
+          minimum: 0
+        creationUser:
+          type: "string"
+        comments:
+          type: "string"
+    OutputGeolocationOld:
+      description: "Old list GPS points"
+      type: "array"
+      items:
+        $ref: "#/components/schemas/GPSPositionOld"
+    GPSPositionOld:
+      description: "Old GPS position information"
+      type: "object"
+      properties:
+        longitud:
+          description: "GPS position longitude"
+          type: "number"
+        latitud:
+          description: "GPS position latitude"
+          type: "number"
+        fecha:
+          description: " GPS position date"
+          type: "string"
+          format: "date-time"
+        tipoGPS:
+          description: "GPS Origin type"
+          type: "integer"
+          format: "int32"
+    OutputGeolocation:
+      description: "List GPS points"
+      type: "array"
+      items:
+        $ref: "../common/common_schemas.yml#/components/schemas/GPSPosition"
+    OutputTransportTrace:
+      description: "Traceability information of a transport"
+      type: "object"
+      properties:
+        ##Son necesarios???
+        requestSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/System"
+        requestSystemTransportCode:
+          type: "integer"
+          format: "int64"
+        #######
+        transportId:
+          type: "integer"
+          format: "int64"
+        originSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        mainSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        hasGeolocation:
+          type: "boolean"
+        transportRegistries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TransportRegistry"
+    TransportRegistry:
+      description: "Transport registry by system"
+      properties:
+        transportRegistryId:
+          type: "integer"
+          format: "int64"
+        system:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        systemTransportCode:
+          type: "integer"
+          format: "int64"
+        truckRegistries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TruckRegistry"
+        statusRegistry:
+            $ref: "#/components/schemas/TransportStatusRegistry"
+        routeStopRegistries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/RouteStopRegistry"
+        issueRegistries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/IssueRegistry"
+    TruckRegistry:
+      description: "transport truck information"
+      type: "object"
+      properties:
+        truckRegistryId:
+          type: "integer"
+          format: "int64"
+        licensePlates:
+          # Dividir en 3 listas y eliminar el tipo de matricula??
+          type: "array"
+          items:
+            $ref: "#/components/schemas/LicensePlate"
+        accessType:
+          $ref: "../common/common_schemas.yml#/components/schemas/AccessType"
+        creationDate:
+          type: "string"
+          format: "date-time"
+        deletionDate:
+          type: "string"
+          format: "date-time"
+    LicensePlate:
+      description: "License plate data"
+      type: "object"
+      properties:
+        licensePlateType:
+          type: "integer"
+          format: "int32"
+          enum:
+            - 1
+            - 2
+            - 3
+          x-enum-varnames:
+            - "TRUCK"
+            - "TRAILER"
+            - "CONTAINER"
+        licensePlate:
+          type: "string"
+        creationDate:
+          type: "string"
+          format: "date-time"
+    TransportStatusRegistry:
+      description: "Transport status information"
+      type: "object"
+      properties:
+        statusRegistryId:
+          type: "integer"
+          format: "int64"
+        status:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportStatus"
+        statusDesc:
+          type: "string"
+        reason:
+          type: "string"
+        timestamp:
+          type: "string"
+          format: "date-time"
+    RouteStopRegistry:
+      description: "Transport route stop information"
+      type: "object"
+      properties:
+        routeStopRegistryId:
+          type: "integer"
+          format: "int64"
+        physicalLocationId:
+          type: "integer"
+          format: "int32"
+        physicalLocationDesc:
+          type: "string"
+        transportAreaId:
+          type: "integer"
+          format: "int32"
+        transportAreaDesc:
+          type: "string"
+        eta:
+          type: "string"
+          format: "date-time"
+        etd:
+          type: "string"
+          format: "date-time"
+        maxEta:
+          type: "string"
+          format: "date-time"
+        maxEtd:
+          type: "string"
+          format: "date-time"
+        gpsEta:
+          type: "string"
+          format: "date-time"
+        gpsEtd:
+          type: "string"
+          format: "date-time"
+        courierEta:
+          type: "string"
+          format: "date-time"
+        courierEtd:
+          type: "string"
+          format: "date-time"
+        activities:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TransportActivity"
+        truckRegistries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TruckRegistry"
+        events:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TransportEvent"
+        driverRegistries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/DriverRegistry"
+    TransportActivity:
+      description: "Activity information on a stop"
+      type: "object"
+      properties:
+        activityId:
+          type: "integer"
+          format: "int64"
+        activityType:
+          type: "integer"
+          format: "int32"
+          enum:
+            - 24
+            - 25
+            - 26
+            - 27
+            - 28
+          x-enum-varnames:
+            - LOAD
+            - UNLOAD
+            - PASS
+            - LOAD_UNLOAD
+            - UNDEFINED
+        startDate:
+          type: "string"
+          format: "date-time"
+        endDate:
+          type: "string"
+          format: "date-time"
+    TransportEvent:
+      description: "Transport Event information"
+      type: "object"
+      properties:
+        eventId:
+          type: "integer"
+          format: "int64"
+        eventType:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportEventType"
+        dock:
+          type: "string"
+        docReference:
+          type: "string"
+        timestamp:
+          type: "string"
+          format: "date-time"
+        creationDate:
+          type: "string"
+          format: "date-time"
+    DriverRegistry:
+      description: "Driver information"
+      type: "object"
+      properties:
+        driverRegistryId:
+          type: "integer"
+          format: "int64"
+        driverType:
+          $ref: "../common/common_schemas.yml#/components/schemas/DriverType"
+        system:
+          $ref: "../common/common_schemas.yml#/components/schemas/System"
+        name:
+          type: "string"
+        surname:
+          type: "string"
+        document:
+          type: "string"
+        marketId:
+          type: "integer"
+          format: "int32"
+        email:
+          type: "string"
+        phoneNumber:
+          type: "string"
+        accessType:
+          $ref: "../common/common_schemas.yml#/components/schemas/AccessType"
+        creationDate:
+          type: "string"
+          format: "date-time"
+        deletionDate:
+          type: "string"
+          format: "date-time"
+    IssueRegistry:
+      description: "Issue information"
+      type: "object"
+      properties:
+        issueRegistryId:
+          type: "integer"
+          format: "int64"
+        issueType:
+          $ref: "../common/common_schemas.yml#/components/schemas/IssueType"
+        issueTypeDesc:
+          type: "string"
+        originPhysicalLocationId:
+          type: "integer"
+          format: "int32"
+        originTransportAreaId:
+          type: "integer"
+          format: "int32"
+        destinationPhysicalLocationId:
+          type: "integer"
+          format: "int32"
+        destinationTransportAreaId:
+          type: "integer"
+          format: "int32"
+        creationDate:
+          type: "string"
+          format: "date-time"
+    OutputTransportRoute:
+      description: "List of stops info of a transport route"
+      type: "object"
+      properties:
+        originSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        mainSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        alert:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportAlert"
+        alertDesc:
+          type: "string"
+        courierId:
+          type: "integer"
+          format: "int32"
+        courierDesc:
+          type: "string"
+        trailerLicensePlate:
+          type: "string"
+        truckLicensePlate:
+          type: "string"
+        route:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TransportRouteStop"
+    OutputTransportSystemIds:
+      description: "List of ids of an specific transport"
+      type: "object"
+      properties:
+        transportId:
+          type: "integer"
+          format: "int64"
+        systemIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/SystemIds"
+    SystemIds:
+      type: "object"
+      properties:
+        system:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        systemTransportCode:
+          type: "integer"
+          format: "int64"
+    TransportRouteStop:
+      description: "Stop information"
+      type: "object"
+      properties:
+        originSystem:
+          $ref: "../common/common_schemas.yml#/components/schemas/OriginSystem"
+        physicalLocationId:
+          type: "integer"
+          format: "int32"
+        physicalLocationDesc:
+          type: "string"
+        transportAreaId:
+          type: "integer"
+          format: "int32"
+        transportAreaDesc:
+          type: "string"
+        offsetTimezone:
+          type: "number"
+        timezoneDesc:
+          type: "string"
+        longitude:
+          type: "number"
+        latitude:
+          type: "number"
+        marketId:
+          type: "integer"
+          format: "int32"
+        itxEta:
+          type: "string"
+          format: "date-time"
+        courierEta:
+          type: "string"
+          format: "date-time"
+        gpsEta:
+          type: "string"
+          format: "date-time"
+        itxEtd:
+          type: "string"
+          format: "date-time"
+        courierEtd:
+          type: "string"
+          format: "date-time"
+        gpsEtd:
+          type: "string"
+          format: "date-time"
+        warehouseSta:
+          type: "string"
+          format: "date-time"
+        driverAta:
+          type: "string"
+          format: "date-time"
+        securityAta:
+          type: "string"
+          format: "date-time"
+        warehouseAta:
+          type: "string"
+          format: "date-time"
+        gpsAta:
+          type: "string"
+          format: "date-time"
+        driverAtd:
+          type: "string"
+          format: "date-time"
+        securityAtd:
+          type: "string"
+          format: "date-time"
+        warehouseAtd:
+          type: "string"
+          format: "date-time"
+        gpsAtd:
+          type: "string"
+          format: "date-time"
+        alert:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransportAlert"
+        alertDesc:
+          type: "string"
+    TransportOrderField:
+      type: "string"
+      enum:
+        - "TRANSPORT_TYPE" #descTipoTransporte
+        - "TRANSPORT_ID" #idTransporteHIT
+        - "COURIER" #transportista
+        - "ORIGIN_SYSTEM" #sistemaOrigen
+        - "ORIGIN_TRANSPORT_ID" #idTransporteOrigen
+        - "TRAILER_LICENSE_PLATE" #remolque
+        - "TRUCK_LICENSE_PLATE" #tractora
+        - "ETA" #eta
+        - "ETD" #etd
+    SearchMode:
+      type: "string"
+      enum:
+        - "ORIGIN"
+        - "ALL"
+    #schema multiples sistemas e ids
+    InputTransportSystemMultipleIds:
+      description: "List of individual pairs of id-system"
+      type: "object"
+      properties:
+        systemIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/SystemId"
+          minItems: 1
+          maxItems: 300
+    SystemId:
+      type: "object"
+      properties:
+        systemTransportCode:
+          type: "integer"
+          format: "int64"
+        system:
+          $ref: "../common/common_schemas.yml#/components/schemas/System"
+    #multiple ids
+    OutputTransportSystemMultipleIds:
+      description: "List of ids of an specific transport"
+      type: "object"
+      properties:
+        transports:
+          type: array
+          items:
+            $ref: "#/components/schemas/OutputTransportSystemIds"

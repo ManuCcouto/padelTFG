@@ -1,0 +1,88 @@
+components:
+  parameters:
+    #OLD PARAMETERS
+    idSistemaOrigenRequest:
+      name: "idSistemaOrigenRequest"
+      in: "query"
+      schema:
+        type: "integer"
+        format: "int32"
+        default: -1
+    codigoTransporteRequest:
+      name: "codigoTransporteRequest"
+      in: "query"
+      schema:
+        type: "integer"
+        format: "int64"
+        default: -1
+    idEntregaSam:
+      name: "idEntregaSam"
+      in: "query"
+      schema:
+        type: "integer"
+        format: "int64"
+        default: -1
+
+    #NEW PARAMETERS
+    allowedPhysicalLocations:
+      name: "allowedPhysicalLocations"
+      required: false
+      in: "query"
+      description: "List of locations that the user is allowed to query"
+      schema:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+    allowedTransportAreas:
+      name: "allowedTransportAreas"
+      required: false
+      in: "query"
+      description: "List of transport areas related to the allowed physical locations"
+      schema:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+    #idsTipoActividad
+    transitTypes:
+      name: "transitType"
+      required: false
+      in: "query"
+      description: "List of Transit types"
+      schema:
+        type: "array"
+        items:
+          $ref: "../common/common_schemas.yml#/components/schemas/TransitTypeStr"
+    #idSistemaBusqueda
+    searchMode:
+      name: "searchMode"
+      # si se pone valor por defecto debe ser obligatorio??
+      required: false
+      in: "query"
+      description: "Identifies the search mode, by origin system or all systems"
+      schema:
+        allOf:
+          - $ref: "../transport/transport_schemas.yml#/components/schemas/SearchMode"
+        default: "ORIGIN"
+    #idsTransportistas
+    courierIds:
+      name: "courierIds"
+      required: false
+      in: "query"
+      description: "List of company ids assigned to the transport"
+      schema:
+        type: "array"
+        items:
+          type: "integer"
+          format: "int32"
+    #order
+    orderField:
+      name: "orderField"
+      required: false
+      in: "query"
+      description: "Field name for order"
+      schema:
+        allOf:
+          - $ref: "../transport/transport_schemas.yml#/components/schemas/TransportOrderField"
+        default: "ETA"

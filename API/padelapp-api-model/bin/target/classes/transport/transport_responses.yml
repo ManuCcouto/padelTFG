@@ -1,0 +1,44 @@
+components:
+  responses:
+    '200FindTransports':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputTransportList"
+    '200FindGeolocationOld':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputGeolocationOld"
+    '200FindGeolocation':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputGeolocation"
+    '200FindTransportTrace':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputTransportTrace"
+    '200FindTransportRoute':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputTransportRoute"
+    '200FindTransportIds':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputTransportSystemIds"
+    '200FindTransportMultipleIds':
+      description: "OK"
+      content:
+        application/json:
+          schema:
+            $ref: "./transport_schemas.yml#/components/schemas/OutputTransportSystemMultipleIds"
